@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta chaset="UTF-8">
+<head >
+
+    <meta charset="UTF-8">
     <title>To do app</title>
 </head>
 <body>
@@ -13,8 +14,8 @@
             </div>
             <h3>【menu】</h3>
             <ul>
-                <li><a href="./views/todo-list.php" style="color:black">To do list（You can check every task!）</a></li>
-                <li><a href="./views/todo-add.php" style="color:black">To add every task!</a></li>
+                <li><a href="./controllers/list-control.php" style="color:black">To do list（You can check every task!）</a></li>
+                <li><a href="./views/add.php" style="color:black">To add every task!</a></li>
             </ul>
         </div>
     </main>
