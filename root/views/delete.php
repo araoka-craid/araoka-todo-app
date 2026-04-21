@@ -12,16 +12,16 @@
 	<main>
 		<div class="container" style="margin:auto; width:300px;">
 			<h2 style= "text-align:center;">Delete</h2>
-			<form method="post" action='../controllers/delete-data.php?delete_id=<?= $data['id'] ?>' >
+			<form method="post" action='../controllers/delete-control.php?delete_id=<?= $data['id'] ?>' >
 				<label for="title">Title</label><br>
 					<p><?= $data['title'] ?></p>
 				<label for="content">Content</label><br>
 					<p><?= $data['content'] ?></p>
 					<input type="button" onclick="history.back()" value="Cancel">
-					<input type="submit" value="Delete">
+					<input type="submit" name="delete" value="Delete">
 			</form>
 		</div>
-	<main>
+	</main>
 </body>
 
 </html>
