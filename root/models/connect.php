@@ -27,46 +27,53 @@ class Connect
         $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
+    //SQLの実行用関数
+    public function exec($sql, $param)
+    {
+        $stmt = $this->dbh->prepare($sql);
+        $stmt->execute($param);
+        return $stmt;
+    }
+
+    //list用のデータ取得関数
     public function getTasks($param)
     {
         $sql = 'SELECT id, title, content, created_at, updated_at FROM todo_list WHERE 1 ORDER BY created_at desc';
         //SQL文の読み込み (or'1'='1'といった攻撃の無効化)
-        $stmt = $this->dbh->prepare($sql);
-        //SQLの実行
-        $stmt->execute($param);
+        $stmt = $this->exec($sql, $param);
         //データの格納
         $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $tasks;
     }
 
-    public function addTasks($param)
+    //editとdelete用のデータ取得関数
+    public function getTask($param)
     {
-        //データの追加
+        $sql = 'SELECT id, title, content, created_at, updated_at FROM todo_list WHERE id = ?';
+        $stmt = $this->exec($sql, $param);
+        $tasks = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $tasks;
+    }
+
+    //データ追加用の関数
+    public function addTask($param)
+    {
         $sql = 'INSERT INTO todo_list (title, content) VALUES(?, ?)';
-        //SQL文の読み込み (or'1'='1'といった攻撃の無効化)
-        $stmt = $this->dbh->prepare($sql);
-        //SQLの実行
-        $stmt->execute($param);
+        $this->exec($sql, $param);
     }
 
-    public function deleteTasks($param)
+    //データ削除用の関数
+    public function deleteTask($param)
     {
-        //データの削除(idが一致したデータ)
         $sql = 'DELETE FROM todo_list WHERE id = ?';
-        //SQL文の読み込み (or'1'='1'といった攻撃の無効化)
-        $stmt = $this->dbh->prepare($sql);
-        //SQLの実行
-        $stmt->execute($param);
+        $this->exec($sql, $param);
     }
 
-    public function editTasks($param)
+    //データ更新用の関数
+    public function editTask($param)
     {
-        //データの更新(idが一致したデータ)
         $sql = 'UPDATE todo_list set title = ?, content = ? WHERE id = ?';
-        //SQL文の読み込み (or'1'='1'といった攻撃の無効化)
-        $stmt = $this->dbh->prepare($sql);
-        //SQLの実行
-        $stmt->execute($param);
+        $this->exec($sql, $param);
     }
 
 }

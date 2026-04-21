@@ -1,16 +1,11 @@
 <?php
 
-require_once '../models/connect.php';
-require_once "../models/sanitize.php";
+require_once __DIR__ . "/../strategies/direct-strategy.php";
 
-//データベースとの接続
-$connection = new Connect();
-
-if (isset($_GET['id'])) {
-    $data = $connection->getTasks([$_GET['id']]);
-    include '../views/delete.php';
+if (isset($_POST['delete'])) {
+    $response = new DeleteResponse();
 } else {
-    $connection->deleteTasks($_GET['delete_id']);
-    $url = "../controllers/list-control.php";
-    header('Location:' . $url);
+    $response = new ViewResponse();
 }
+
+$response->ResponseHandler([$_GET['id']]);

@@ -11,7 +11,7 @@
     <div class="container" style = "margin:auto;width:90%;">
         <h2 style = "text-align:center; margin-bottom:0;">To Do List</h2><br/>
         <div class = "box" style="display: flex; justify-content: flex-end; margin-bottom:5px;">
-            <button><a href="../controllers/add-control.php" style="color:black; text-decoration:none;">To add tasks</a></button>
+            <button><a href="../views/add.php" style="color:black; text-decoration:none;">To add tasks</a></button>
         </div>
         <form method="post" action=#>
             <table style = "margin:auto; text-align:center; width:100%;"  border="1">
