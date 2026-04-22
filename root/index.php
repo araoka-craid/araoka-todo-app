@@ -14,7 +14,7 @@
             </div>
             <h3>【menu】</h3>
             <ul>
-                <li><a href="./controllers/list-control.php" style="color:black">To do list（You can check every task!）</a></li>
+                <li><a href="./controllers/ListController.php" style="color:black">To do list（You can check every task!）</a></li>
                 <li><a href="./views/add.php" style="color:black">To add every task!</a></li>
             </ul>
         </div>

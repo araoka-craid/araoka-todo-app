@@ -1,10 +1,10 @@
 <?php
 
-require_once __DIR__ . '/../models/connect.php';
+require_once __DIR__ . '/../models/database/todo_list.php';
 
-$connection = new Connect();
+$database = new TodoList();
 
 //テーブルからデータの取得準備
-$tasks = $connection->getTasks(null);
+$tasks = $database->getTasks(null);
 
 include "../views/list.php";

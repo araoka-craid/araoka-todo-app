@@ -29,8 +29,8 @@
             <td><?= $task['content'] ?></td>
             <td><?= $task['created_at'] ?></td>
             <td><?= $task['updated_at'] ?></td>
-            <td><button><a style = "text-decoration:none;color:black;" href="../controllers/edit-control.php?id=<?= $task['id'] ?>">Edit</a></button></td>
-            <td><button><a style = "text-decoration:none;color:black;" href="../controllers/delete-control.php?id=<?= $task['id'] ?>">Delete</a></button></td>
+            <td><button><a style = "text-decoration:none;color:black;" href="../controllers/edit-control.php?id=<?= $task['id'] ?>&action=edit">Edit</a></button></td>
+            <td><button><a style = "text-decoration:none;color:black;" href="../controllers/delete-control.php?id=<?= $task['id'] ?>&action=delete">Delete</a></button></td>
         </tr>
     <?php endforeach; ?>
         </table>
