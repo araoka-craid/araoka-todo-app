@@ -1,36 +1,54 @@
 <?php
 
-require_once __DIR__ . "/action-strategy.php";
-require_once __DIR__ . "/show-strategy.php";
-require_once __DIR__ . "/../models/connect.php";
+require_once __DIR__ . "/./direct/show-strategy.php";
+require_once __DIR__ . "/../models/database/todo_list.php";
 
-class EditResponse
+interface Direction
 {
+    public function ResponseHandler($params);
+}
+
+class EditResponse implements Direction
+{
+    private $errors;
+    private $param;
+
     public function ResponseHandler($params)
     {
-        $strategy = new ActionStrategy($params);
-        $strategy->edit();
-        header("Location:../controllers/list-control.php");
-        exit;
+
+        $this->param = $params;
+        $validator = new Validator();
+        $this->errors = $validator->validate($this->param);
+
+        if (!empty($this->errors)) {
+            //エラー時用
+            return $this->errors;
+        } else {
+            //データベースとの接続
+            $database = new TodoList();
+            $data = [$this->param['title'], $this->param['content'], $this->param['id']];
+            $database->editTask($data);
+            return true;
+        }
     }
 }
 
-class DeleteResponse
+class DeleteResponse implements Direction
 {
     public function ResponseHandler($params)
     {
-        $connection = new Connect();
-        $connection->deleteTask($params);
-        header("Location:../controllers/list-control.php");
-        exit;
+        $database = new TodoList();
+        return $database->deleteTask($params);
     }
 }
 
-class ViewResponse
+class ViewResponse implements Direction
 {
     public function ResponseHandler($params)
     {
-        $strategy = new ShowStrategy($params);
-        $strategy->show();
+        $database = new TodoList();
+        $data = $database->getTask([$params['id']]);
+        $sanitize = new Sanitization();
+        return $sanitize->sanitize($data);
     }
 }
