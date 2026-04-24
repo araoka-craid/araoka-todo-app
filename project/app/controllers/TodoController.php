@@ -2,20 +2,19 @@
 
 namespace App\Controllers;
 
-use App\Models\Database\TodoList;
-use App\Core\Validator;
-
 class TodoController
 {
     private $todo;
     private $validator;
 
-    public function __construct(TodoList $todo, Validator $validator)
+    //各機能を依存注入
+    public function __construct($todo, $validator)
     {
         $this->todo = $todo;
         $this->validator = $validator;
     }
 
+    //list.phpへのデータ受け渡し
     public function list($param)
     {
         $tasks = $this->todo->getTasks($param);
@@ -24,18 +23,22 @@ class TodoController
         ];
     }
 
+    //add.phpへの分岐
     public function create()
     {
         return [];
     }
 
+    //Insert用
     public function add($post)
     {
         $errors = $this->validator->validate($post);
 
         if (!empty($errors)) {
-            require BASE_PATH . '/app/views/add.php';
-            return;
+            return [
+                'view'   => 'add',
+                'errors' => $errors,
+            ];
         }
 
         $params = [
@@ -47,13 +50,17 @@ class TodoController
         header('Location: /');
     }
 
+    //Update用
     public function update($post)
     {
         $errors = $this->validator->validate($post);
 
         if (!empty($errors)) {
-            require BASE_PATH . '/app/views/add.php';
-            return;
+            return [
+                'data'   => $post,
+                'view'   => 'edit',
+                'errors' => $errors
+            ];
         }
 
         $params = [
@@ -66,12 +73,14 @@ class TodoController
         header('Location: /');
     }
 
+    //editとdelete時の既存データ表示時のデータ受け渡し
     public function get($post, $id)
     {
         $data = $this->todo->getTask([$id]);
         return ['data' => $data];
     }
 
+    //delete用
     public function delete($post)
     {
         $param = [

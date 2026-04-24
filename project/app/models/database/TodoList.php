@@ -6,15 +6,15 @@ class TodoList
 {
     private $db;
 
-    public function __construct()
+    public function __construct($database)
     {
-        $this->db = new Database();
+        $this->db = $database;
     }
 
     //list用のデータ取得関数
     public function getTasks($param)
     {
-        $sql = 'SELECT id, title, content, created_at, updated_at FROM todo_list WHERE 1 ORDER BY created_at desc';
+        $sql = 'SELECT id, title, content, created_at, updated_at FROM todo_list ORDER BY created_at desc';
         $stmt = $this->db->exec($sql, $param);
         //データの格納
         $tasks = $stmt->fetchAll(\PDO::FETCH_ASSOC);

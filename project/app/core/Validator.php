@@ -1,11 +1,11 @@
 <?php
 
-namespace App\core;
+namespace App\Core;
 
 class Validator
 {
-    public const MAX_TITLE_LENGTH = 20;
-    public const MAX_CONTENT_LENGTH = 50;
+    public const MAX_TITLE_LENGTH = 10;
+    public const MAX_CONTENT_LENGTH = 20;
 
     public function validate($data)
     {

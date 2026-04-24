@@ -1,6 +1,6 @@
 <?php
 
-namespace App\core;
+namespace App\Core;
 
 class TodoViewStrategy
 {
@@ -21,11 +21,17 @@ class TodoViewStrategy
     {
         $data = $this->controller->{$this->action}($_POST, ...$this->params);
 
-        if ($this->viewName) {
+        if (isset($data['view'])) {
+            $this->viewName = $data['view'];
+        }
+
+        $view = $data['view'] ?? $this->viewName;
+
+        if ($view) {
             if (is_array($data)) {
                 extract($data);
             }
-            require BASE_PATH . "/resources/views/{$this->viewName}.php";
+            require BASE_PATH . "/resources/views/{$view}.php";
         }
     }
 }

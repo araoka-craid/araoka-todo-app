@@ -17,7 +17,7 @@
 					<p><?= h($data['title']) ?></p>
 				<label for="content">Content</label><br>
 					<p><?= h($data['content']) ?></p>
-					<input type="hidden" name="id" value="<?= $data['id'] ?>">
+					<input type="hidden" name="id" value="<?= h($data['id']) ?>">
 					<input type="button" onclick="history.back()" value="Cancel">
 					<input type="submit" name="delete" value="Delete">
 			</form>
