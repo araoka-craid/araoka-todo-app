@@ -20,7 +20,7 @@
 					<p style = "color:red;"><?= $errors['title'] ?></p>
 				<?php endif; ?>
 				<label for="content">Content</label><br>
-					<textarea type="text" name="content" rows="5" cols="40" ></textarea><br />
+					<textarea type="text" name="content" rows="5" cols="40"></textarea><br />
 				<?php if (isset($errors['content'])): ?>
 					<p style = "color:red;"><?= $errors['content'] ?></p>
 				<?php endif; ?>
